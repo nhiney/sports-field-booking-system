@@ -52,6 +52,7 @@ class FieldController extends Controller
             'opening_time' => 'required|date_format:H:i',
             'closing_time' => 'required|date_format:H:i|after:opening_time',
             'status' => 'required|in:active,maintenance,unavailable',
+            'image' => 'required|string|max:255',   
         ]);
 
         $field = SportsField::create($validated);
@@ -68,7 +69,7 @@ class FieldController extends Controller
             ]);
         }
 
-        return redirect()->route('fields.index')
+        return redirect()->route('admin.fields.index')
             ->with('success', 'Field created successfully!');
     }
 
@@ -97,6 +98,7 @@ class FieldController extends Controller
             'opening_time' => 'required|date_format:H:i',
             'closing_time' => 'required|date_format:H:i|after:opening_time',
             'status' => 'required|in:active,maintenance,unavailable',
+            'image' => 'required|string|max:255', 
         ]);
 
         $field->update($validated);
@@ -113,15 +115,15 @@ class FieldController extends Controller
             ]);
         }
 
-        return redirect()->route('fields.index')
+        return redirect()->route('admin.fields.index')
             ->with('success', 'Field updated successfully!');
     }
 
-    public function destroy(SportsField $field)
+    public function destroy(SportsField $field) 
     {
         $field->delete();
 
-        return redirect()->route('fields.index')
+        return redirect()->route('admin.fields.index')
             ->with('success', 'Field deleted successfully!');
     }
 
@@ -136,7 +138,7 @@ class FieldController extends Controller
 
         $field->update(['time_slots' => $validated['time_slots']]);
 
-        return redirect()->route('fields.show', $field->id)
+        return redirect()->route('admin.fields.show', $field->id)
             ->with('success', 'Cập nhật khung giờ thành công!');
     }
 }

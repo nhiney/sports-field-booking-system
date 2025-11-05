@@ -195,6 +195,12 @@
                             @endforeach
                         </select>
                     </div>
+                    
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image URL</label>
+                        <input type="text" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg" value="{{ old('image', $field->image ?? '') }}">
+                    </div>
+
 
                     <div class="row">
                         <div class="col-md-6 mb-3">

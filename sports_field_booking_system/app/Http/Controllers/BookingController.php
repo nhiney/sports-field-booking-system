@@ -62,34 +62,51 @@ class BookingController extends Controller
         return view('booking.field-details', compact('field', 'isFavorited'));
     }
 
-    public function checkAvailability(Request $request, $fieldId)
-    {
-        $request->validate(['date' => 'required|date']);
-        $field = SportsField::findOrFail($fieldId);
-        $date = Carbon::parse($request->input('date'))->format('Y-m-d');
-        $allSlots = $field->generateTimeSlots();
+public function checkAvailability(Request $request, $fieldId)
+{
+    $request->validate(['date' => 'required|date']);
+    $field = SportsField::findOrFail($fieldId);
+    $date = Carbon::parse($request->input('date'))->format('Y-m-d');
+    $allSlots = $field->generateTimeSlots();
 
-        $bookedSlots = Booking::where('sports_field_id', $fieldId)
-            ->where('booking_date', $date)
-            ->where('status', '!=', 'cancelled')
-            ->pluck('start_time')
-            ->map(fn($time) => Carbon::parse($time)->format('H:i'))
-            ->flip();
+    $bookedSlots = Booking::where('sports_field_id', $fieldId)
+        ->where('booking_date', $date)
+        ->where('status', '!=', 'cancelled')
+        ->pluck('start_time')
+        ->map(fn($time) => Carbon::parse($time)->format('H:i'))
+        ->flip();
 
-        $settings = PricingSetting::first();
-        $peakStart = $settings ? Carbon::parse($settings->peak_start_time) : Carbon::createFromTime(18, 0);
-        $surcharge = $settings ? (int) $settings->peak_surcharge : 2000;
+    $settings = PricingSetting::first();
+    $peakStart = $settings ? Carbon::parse($settings->peak_start_time) : Carbon::createFromTime(18, 0);
+    $surcharge = $settings ? (int) $settings->peak_surcharge : 2000;
 
-        foreach ($allSlots as &$slot) {
-            $slotStart = $slot['start_time'];
-            $slot['available'] = !isset($bookedSlots[$slotStart]);
-            $isPeak = Carbon::createFromFormat('H:i', $slotStart)->gte($peakStart);
-            $slot['peak'] = $isPeak;
-            $slot['price'] = (int) $field->price_per_90min + ($isPeak ? $surcharge : 0);
-        }
+    // ✅ Thêm phần lấy thời gian hiện tại
+    $now = Carbon::now();
 
-        return response()->json(['success' => true, 'slots' => $allSlots]);
+    foreach ($allSlots as &$slot) {
+        $slotStart = $slot['start_time'];
+        $slotCarbon = Carbon::createFromFormat('H:i', $slotStart)->setDateFrom(Carbon::parse($date));
+
+        // ✅ Kiểm tra: nếu giờ bắt đầu < hiện tại (và là ngày hôm nay) → không cho đặt
+        $isPast = $slotCarbon->lessThan($now) && $slotCarbon->isSameDay($now);
+
+        // Đánh dấu slot có khả dụng hay không
+        $slot['available'] = !isset($bookedSlots[$slotStart]) && !$isPast;
+
+        // Giờ cao điểm
+        $isPeak = Carbon::createFromFormat('H:i', $slotStart)->gte($peakStart);
+        $slot['peak'] = $isPeak;
+
+        // Tính giá
+        $slot['price'] = (int) $field->price_per_90min + ($isPeak ? $surcharge : 0);
+
+        // ✅ (Tuỳ chọn) thêm flag để hiển thị trên giao diện
+        $slot['past'] = $isPast;
     }
+
+    return response()->json(['success' => true, 'slots' => $allSlots]);
+}
+
 
     public function book(Request $request, $fieldId)
     {

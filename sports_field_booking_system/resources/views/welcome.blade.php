@@ -621,7 +621,7 @@
 
                     <!-- Nút Đặt ngay -->
                     @auth
-                    <a href="{{ route('login', ['id' => $court->id]) }}" class="btn-book-now">
+                    <a href="{{ route('booking.field-details', ['id' => $court->id]) }}" class="btn-book-now">
                         <i class="fa-solid fa-calendar-check"></i> Đặt ngay
                     </a>
                     @else

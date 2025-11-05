@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// ✅ ĐÃ SỬA: Import Enum từ vị trí thực tế của nó
 use App\User\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,12 +30,11 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            // ✅ ĐÃ SỬA: Sử dụng đúng đường dẫn lớp để cast
             'role' => Role::class,
         ];
     }
 
-    // ... (các phương thức còn lại trong model User của bạn không thay đổi) ...
+
 
     public function bookings(): HasMany
     {

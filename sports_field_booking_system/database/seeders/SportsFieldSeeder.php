@@ -68,7 +68,7 @@ class SportsFieldSeeder extends Seeder
                 'status' => 'active',
                 'opening_time' => '07:00:00',
                 'closing_time' => '20:00:00',
-                'image' => 'https://img.thegioithethao.vn/thumbs/san-bong-da/ho-chi-minh/quan-1/san-bong-tao-dan/san-bong-tao-Dan-4_thumb_150.webp',
+                'image' => 'https://thethaophui.com/Media/Places/181119040319/Gallery/san-bong-da-tao-dan-q1.jpg',
             ],
             [
                 'name' => 'Sân Quần Vợt Kỳ Hòa',
@@ -98,7 +98,7 @@ class SportsFieldSeeder extends Seeder
                 'status' => 'active',
                 'opening_time' => '08:30:00',
                 'closing_time' => '22:00:00',
-                'image' => 'https://lh3.googleusercontent.com/proxy/3v3AaqUSVtb4Uys_FiSIKXenEBP81tvGhfl_UXTsrx68vwMyGrMoU65NcXHLcV3VH9LzP1y5EASItCAtouAso4b5EzaDnUqCIHE',
+                'image' => 'https://static.tuoitre.vn/tto/r/2017/07/17/8c12eaad.jpg',
             ],
 
 

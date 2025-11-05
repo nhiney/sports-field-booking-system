@@ -69,7 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Field management routes
     Route::get('/fields', [App\Http\Controllers\Admin\FieldController::class, 'index'])->name('admin.fields.index');
-    Route::get('/fields/create', [App\Http\Controllers\Admin\FieldController::class, 'create'])->name('admin.fields.create');
+    Route::get('/fields/create', [App\Http\Controllers\Admin\FieldController::class, 'create'])->name('admin.fields.create');   
     Route::post('/fields', [App\Http\Controllers\Admin\FieldController::class, 'store'])->name('admin.fields.store');
     Route::get('/fields/{field}', [App\Http\Controllers\Admin\FieldController::class, 'show'])->name('admin.fields.show');
     Route::get('/fields/{field}/edit', [App\Http\Controllers\Admin\FieldController::class, 'edit'])->name('admin.fields.edit');

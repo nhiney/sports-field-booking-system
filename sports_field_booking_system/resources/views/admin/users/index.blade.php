@@ -197,7 +197,7 @@
                             </td>
                             <td>{{ $u->created_at->format('M d, Y') }}</td>
                             <td class="text-end">
-                                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.bookings.index') }}?user={{ $u->id }}">
+                                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.bookings.index') }}?user={{ $u->name }}">
                                     <i class="fas fa-calendar-alt me-1"></i>Đặt sân
                                 </a>
                                 <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this user and all their data?');">

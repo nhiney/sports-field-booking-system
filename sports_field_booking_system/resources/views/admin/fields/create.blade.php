@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameOn Quản trị - Thêm Sân Mới</title>
+    <title>Quản trị - Thêm Sân Mới</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
@@ -16,7 +17,7 @@
         /* Thanh điều hướng */
         .navbar {
             background: linear-gradient(135deg, #43cea2, #185a9d);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
@@ -25,20 +26,21 @@
             font-size: 1.5rem;
         }
 
-        .navbar .nav-link, .dropdown-item {
+        .navbar .nav-link,
+        .dropdown-item {
             color: #ffffff !important;
         }
 
         .dropdown-menu {
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Thân trang */
         .main-content {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             padding: 35px;
             margin-top: 2rem;
         }
@@ -85,6 +87,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Thanh điều hướng -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -105,7 +108,9 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item text-dark" href="#"><i class="fas fa-user-cog me-2"></i>Hồ sơ</a></li>
                             <li><a class="dropdown-item text-dark" href="#"><i class="fas fa-cog me-2"></i>Cài đặt</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                     @csrf
@@ -132,18 +137,18 @@
             </div>
 
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <form method="POST" action="{{ route('admin.fields.store') }}">
                 @csrf
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Tên sân</label>
@@ -213,6 +218,12 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="text" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg" value="{{ old('image', $field->image ?? '') }}">
+                </div>
+
+
+                <div class="mb-3">
                     <label class="form-label">Địa chỉ chi tiết</label>
                     <textarea class="form-control" name="address" rows="2" required></textarea>
                 </div>
@@ -247,4 +258,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
