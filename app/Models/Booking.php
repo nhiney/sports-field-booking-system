@@ -42,16 +42,13 @@ class Booking extends Model
     {
         return $this->belongsTo(SportsField::class);
     }
-    // ... các hàm khác ...
 
     public function showField($id)
     {
         $field = SportsField::findOrFail($id);
 
-        // THÊM DÒNG NÀY VÀO
         $isFavorited = User::check() ? User::user()->favorites()->where('sports_field_id', $id)->exists() : false;
 
-        // SỬA LẠI HÀM RETURN
         return view('booking.field-details', compact('field', 'isFavorited'));
     }
 }

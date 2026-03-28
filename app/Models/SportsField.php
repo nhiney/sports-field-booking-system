@@ -31,7 +31,6 @@ class SportsField extends Model
         'amenities' => 'array',
         'opening_time' => 'datetime',
         'closing_time' => 'datetime',
-        // price stored as integer (whole currency units)
         'time_slots' => 'array',
     ];
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
-use App\Models\SportsField; // 1. THÊM DÒNG NÀY
+use App\Models\SportsField; 
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +37,6 @@ class DashboardController extends Controller
             ->where('is_read', false)
             ->count();
 
-        // 2. LẤY THÊM DỮ LIỆU SÂN THỂ THAO
         $sportsFields = SportsField::where('status', 'active')
             ->latest()
             ->paginate(4);

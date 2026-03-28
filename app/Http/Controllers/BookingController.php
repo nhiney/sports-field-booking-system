@@ -80,14 +80,14 @@ public function checkAvailability(Request $request, $fieldId)
     $peakStart = $settings ? Carbon::parse($settings->peak_start_time) : Carbon::createFromTime(18, 0);
     $surcharge = $settings ? (int) $settings->peak_surcharge : 2000;
 
-    // ✅ Thêm phần lấy thời gian hiện tại
+    //  Thêm phần lấy thời gian hiện tại
     $now = Carbon::now();
 
     foreach ($allSlots as &$slot) {
         $slotStart = $slot['start_time'];
         $slotCarbon = Carbon::createFromFormat('H:i', $slotStart)->setDateFrom(Carbon::parse($date));
 
-        // ✅ Kiểm tra: nếu giờ bắt đầu < hiện tại (và là ngày hôm nay) → không cho đặt
+        // Kiểm tra: nếu giờ bắt đầu < hiện tại (và là ngày hôm nay) → không cho đặt
         $isPast = $slotCarbon->lessThan($now) && $slotCarbon->isSameDay($now);
 
         // Đánh dấu slot có khả dụng hay không
@@ -100,7 +100,7 @@ public function checkAvailability(Request $request, $fieldId)
         // Tính giá
         $slot['price'] = (int) $field->price_per_90min + ($isPeak ? $surcharge : 0);
 
-        // ✅ (Tuỳ chọn) thêm flag để hiển thị trên giao diện
+        // (Tuỳ chọn) thêm flag để hiển thị trên giao diện
         $slot['past'] = $isPast;
     }
 
@@ -231,7 +231,6 @@ public function checkAvailability(Request $request, $fieldId)
 
         $booking->update(['status' => 'cancelled']);
 
-        // Điều này đảm bảo thông báo được gửi đến đúng người dùng sở hữu booking.
         // Thông báo cho khách hàng
         $booking->user->notifications()->create([
             'type' => 'booking_cancelled',
@@ -260,9 +259,7 @@ public function checkAvailability(Request $request, $fieldId)
 
     public function myBookings(Request $request)
     {
-        // ✅ LƯU Ý QUAN TRỌNG:
-        // Phương thức này phải được bảo vệ bởi middleware 'auth' trong file routes/web.php.
-        // Nếu không, các dòng auth()->user()->... sẽ gây ra lỗi nghiêm trọng.
+       
         $user = Auth::user();
 
         $query = $user->bookings()->with('sportsField');

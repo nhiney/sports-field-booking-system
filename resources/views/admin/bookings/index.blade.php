@@ -40,7 +40,7 @@
             background: transparent;
         }
 
-        /* 🌿 Main Card Layout */
+        /* Main Card Layout */
         .main-content {
             background: white;
             border-radius: 15px;
@@ -49,7 +49,7 @@
             margin-top: 2rem;
         }
 
-        /* 🌊 Buttons */
+        /* Buttons */
         .btn-custom {
             background: linear-gradient(135deg, #3CA55C 0%, #2B9ACF 100%);
             border: none;
@@ -77,7 +77,7 @@
             color: white;
         }
 
-        /* 🌼 Badges */
+        /*  Badges */
         .badge.bg-danger {
             background-color: #dc3545 !important;
         }
@@ -94,7 +94,7 @@
             background: linear-gradient(135deg, #2B9ACF 0%, #6dd5fa 100%);
         }
 
-        /* 📖 Pagination */
+        /* Pagination */
         .pagination {
             justify-content: center;
             margin-top: 30px;
@@ -128,7 +128,7 @@
             background-color: #fff;
         }
 
-        /* 🌟 Titles */
+        /* Titles */
         h2,
         h5 {
             color: #1d3557;

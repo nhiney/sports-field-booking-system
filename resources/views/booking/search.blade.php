@@ -453,7 +453,6 @@
         }
 
         function toggleFavorite(event, fieldId, button) {
-            // Ngăn chặn sự kiện click lan tới thẻ <a> cha
             event.stopPropagation();
             event.preventDefault();
 

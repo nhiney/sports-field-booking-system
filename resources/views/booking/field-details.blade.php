@@ -200,7 +200,7 @@
                                     </label>
                                 </div>
                                 
-                                <!-- Thông tin ngân hàng (chỉ hiện khi chọn chuyển khoản) -->
+                                <!-- Thông tin ngân hàng -->
                                 <div id="bank-info" class="mt-3" style="display: none;">
                                     <div class="alert alert-info">
                                         <h6><i class="fas fa-info-circle me-2"></i>Thông tin chuyển khoản:</h6>
